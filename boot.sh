@@ -37,6 +37,18 @@ kill_spinner() {
     kill $1 > /dev/null 2>&1
 }
 
+# Função para perguntar sim/não
+ask_yes_no() {
+    while true; do
+        read -p "$1 (s/n): " yn
+        case $yn in
+            [Ss]* ) return 0;;
+            [Nn]* ) return 1;;
+            * ) echo "Por favor, responda com 's' ou 'n'.";;
+        esac
+    done
+}
+
 clear
 echo -e "$ascii_art"
 echo -e "\n${C_YELLOW}=> Omakub-BR: Personalize seu Ubuntu 24.04 com estilo!${C_RESET}"
@@ -47,6 +59,33 @@ echo -e "\n${C_CYAN}Iniciando instalação...${C_RESET}\n"
 if [ "$(id -u)" = 0 ]; then
     echo -e "${C_RED}⚠️  Não execute este script como root/sudo!${C_RESET}"
     exit 1
+fi
+
+# Oferecer instalação do ProtonVPN
+echo -e "${C_RED}=== Recomendação de Segurança ===${C_RESET}"
+echo -e "Devido às restrições de acesso em alguns países, incluindo o Brasil,"
+echo -e "é recomendado utilizar uma VPN para garantir acesso livre e seguro.\n"
+
+if ask_yes_no "Deseja instalar o ProtonVPN agora?"; then
+    show_spinner "Instalando ProtonVPN" &
+    SPINNER_PID=$!
+
+    # Download e instalação do ProtonVPN
+    wget -q https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_1.0.6_all.deb
+    sudo dpkg -i ./protonvpn-stable-release_1.0.6_all.deb >/dev/null 2>&1
+    sudo apt update >/dev/null 2>&1
+    sudo apt install -y proton-vpn-gnome-desktop >/dev/null 2>&1
+    sudo apt install -y libayatana-appindicator3-1 gir1.2-ayatanaappindicator3-0.1 gnome-shell-extension-appindicator >/dev/null 2>&1
+    rm ./protonvpn-stable-release_1.0.6_all.deb
+
+    kill_spinner $SPINNER_PID
+    echo -e "${C_GREEN}✓${C_RESET}"
+
+    echo -e "\n${C_YELLOW}⚠️  Configure o ProtonVPN antes de continuar:${C_RESET}"
+    echo -e "1. Abra o ProtonVPN no menu de aplicativos"
+    echo -e "2. Faça login ou crie uma conta gratuita em https://protonvpn.com"
+    echo -e "3. Conecte-se a um servidor VPN"
+    read -p "Pressione ENTER após configurar e conectar o ProtonVPN para continuar..."
 fi
 
 if ! command -v git &> /dev/null; then
@@ -67,12 +106,12 @@ git clone https://github.com/misterioso013/omakub-br.git ~/.local/share/omakub >
 kill_spinner $SPINNER_PID
 echo -e "${C_GREEN}✓${C_RESET}"
 
-# Verificando branch
-if [[ $OMAKUB_REF != "master" ]]; then
+# Verificando branch (usando master como padrão)
+if [[ $OMAKUB_REF != "master" && ! -z "$OMAKUB_REF" ]]; then
     cd ~/.local/share/omakub
-    show_spinner "Configurando versão ${OMAKUB_REF:-stable}" &
+    show_spinner "Configurando versão ${OMAKUB_REF}" &
     SPINNER_PID=$!
-    git fetch origin "${OMAKUB_REF:-stable}" && git checkout "${OMAKUB_REF:-stable}" >/dev/null 2>&1
+    git fetch origin "${OMAKUB_REF}" && git checkout "${OMAKUB_REF}" >/dev/null 2>&1
     kill_spinner $SPINNER_PID
     echo -e "${C_GREEN}✓${C_RESET}"
     cd - > /dev/null
