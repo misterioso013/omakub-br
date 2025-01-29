@@ -1,19 +1,50 @@
-# Omakub
+# 🚀 Omakub-BR
 
-Turn a fresh Ubuntu installation into a fully-configured, beautiful, and modern web development system by running a single command. That's the one-line pitch for Omakub. No need to write bespoke configs for every essential tool just to get started or to be up on all the latest command-line tools. Omakub is an opinionated take on what Linux can be at its best.
+> Este projeto é um fork do [Omakub](https://github.com/basecamp/omakub) adaptado para a comunidade brasileira.
 
-Watch the introduction video and read more at [omakub.org](https://omakub.org).
+Uma distribuição personalizada do Ubuntu 24.04 com foco na comunidade brasileira, baseada no projeto Omakub da Basecamp.
 
-## Contributing to the documentation
+## ⚡ Instalação Rápida
 
-Please help us improve Omakub's documentation on the [basecamp/omakub-site repository](https://github.com/basecamp/omakub-site).
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/misterioso013/omakub-br/master/boot.sh)"
+```
 
-## License
+## 🎨 Características
 
-Omakub is released under the [MIT License](https://opensource.org/licenses/MIT).
+- Interface em português brasileiro
+- Temas e ícones modernos
+- Aplicativos essenciais pré-configurados
+- Suporte a desenvolvimento
+- Ferramentas de produtividade
+- Todos os recursos do Omakub original
 
-## Extras
+## 🛠️ Requisitos
 
-While omakub is purposed to be an opinionated take, the open source community offers alternative customization, add-ons, extras, that you can use to adjust, replace or enrich your experience.
+- Ubuntu 24.04 LTS (instalação limpa)
+- Conexão com a internet
+- Ambiente GNOME
 
-[⇒ Browse the omakub extensions.](EXTENSIONS.md)
+## 🤝 Contribuição
+
+Sinta-se à vontade para contribuir com o projeto! Abra uma issue ou envie um pull request.
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT.
+
+## 🙏 Créditos
+
+Este projeto é baseado no [Omakub](https://github.com/basecamp/omakub), desenvolvido pela [Basecamp](https://basecamp.com). O Omakub original transforma uma instalação limpa do Ubuntu em um sistema de desenvolvimento web totalmente configurado, bonito e moderno com a execução de um único comando.
+
+Para mais informações sobre o projeto original, visite [omakub.org](https://omakub.org).
+
+### Documentação Original
+
+A documentação do Omakub está disponível no repositório [basecamp/omakub-site](https://github.com/basecamp/omakub-site).
+
+### Extensões
+
+O Omakub oferece suporte a extensões da comunidade que você pode usar para ajustar, substituir ou enriquecer sua experiência.
+
+[⇒ Navegue pelas extensões do Omakub](EXTENSIONS.md)
